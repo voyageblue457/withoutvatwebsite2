@@ -87,9 +87,12 @@ export default function Home({ adminId, posterId, param, param2, linkConfig }) {
 
     setLoading(true);
     const fullLink =
-      param && param2
+      linkConfig?.linkName ||
+      (param && param2
         ? `https://${site}/${param}/${param2}`
-        : `https://${site}`;
+        : param
+        ? `https://${site}/${param}`
+        : `https://${site}`);
 
     const values = {
       site: fullLink,
