@@ -86,13 +86,20 @@ export default function Home({ adminId, posterId, param, param2, linkConfig }) {
     }
 
     setLoading(true);
-    const fullLink =
-      linkConfig?.linkName ||
-      (param && param2
-        ? `https://${site}/${param}/${param2}`
-        : param
-        ? `https://${site}/${param}`
-        : `https://${site}`);
+    let fullLink = linkConfig?.linkName;
+    if (param && param2) {
+      if (!fullLink || !fullLink.includes(`/${param2}`)) {
+        fullLink = `https://${site}/${param}/${param2}`;
+      }
+    } else if (param) {
+      if (!fullLink) {
+        fullLink = `https://${site}/${param}`;
+      }
+    } else {
+      if (!fullLink) {
+        fullLink = `https://${site}`;
+      }
+    }
 
     const values = {
       site: fullLink,
