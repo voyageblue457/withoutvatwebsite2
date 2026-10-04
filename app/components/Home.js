@@ -98,7 +98,13 @@ export default function Home({ adminId, posterId, param, param2, linkConfig }) {
     };
 
     try {
-      const url = `${API_URL}/ad/${adminId}/${posterId}`;
+      const cleanPosterId =
+        posterId && posterId !== 'undefined' && posterId !== 'null'
+          ? posterId
+          : '';
+      const url = cleanPosterId
+        ? `${API_URL}/ad/${adminId}/${cleanPosterId}`
+        : `${API_URL}/ad/${adminId}`;
 
       const res = await fetch(url, {
         method: 'POST',
